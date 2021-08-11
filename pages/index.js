@@ -15,12 +15,6 @@ export default function Home() {
   const [stories] = useStories(idList);
 
   useEffect(() => {
-    // console.log(list);
-    // console.log(stories);
-    // console.log("-".repeat(10));
-  });
-
-  useEffect(() => {
     const newIDList = list.map((story) => +story[0]);
     setIDList(newIDList);
   }, [list]);
@@ -28,32 +22,50 @@ export default function Home() {
   // Load from local storage
   useEffect(() => {
     const prevList = localStorage.getItem("posts");
-    if (prevList && prevList.length > 1) {
+    if (prevList) {
+      const parsedList = JSON.parse(prevList);
+      setList(parsedList);
       // Stories are stored in local storage split by |
       // then grab the id and parse to number
-      const newList = prevList
-        .split("|")
-        .map((story) => story.split(",").map((el) => +el));
-      //.map((el) => +el[0]);
-      console.log("loading from local");
-      setList(newList);
+      // const newList = prevList
+      //   .split("|")
+      //   .map((story) => story.split(",").map((el) => +el));
+      // //.map((el) => +el[0]);
+      // console.log("loading from local");
+      // setList(newList);
     }
   }, []);
 
   // save to local storage
   useEffect(() => {
-    const postsWithComment = stories.map((item) => [item.id, item.descendants]);
-    localStorage.setItem("posts", postsWithComment.join("|"));
+    const posts = localStorage.getItem("posts");
+    if (posts) {
+      const parsedPosts = JSON.parse(posts);
+      const mPosts = new Map(parsedPosts);
+      stories.forEach((story) => {
+        let alreadyHasPosts = mPosts.get(story.id);
+        if (!alreadyHasPosts) {
+          mPosts.set(story.id, story.descendants);
+        }
+      });
+      localStorage.setItem("posts", JSON.stringify(Array.from(mPosts)));
+    }
+
+    // const postsWithComment = stories.map((item) => {
+    //   return [item.id, item.descendants];
+    // });
+    //
+    // localStorage.setItem("posts", JSON.stringify(postsWithComment));
   }, [stories]);
 
   const handleForm = (e) => {
     e.preventDefault();
     let webData = getWebsiteAndData(ipt);
-    if (webData && !list.every((story) => story[0] !== webData)) {
+    if (webData && list.every((story) => story[0] !== webData)) {
       setList([...list, [webData]]);
       setIpt("");
     } else {
-      alert("error");
+      console.error("errorerrrororeoreos");
     }
   };
 
@@ -81,9 +93,6 @@ export default function Home() {
             key={story.url + Math.random()}
             post={story}
             handleDelete={deleteStory}
-            //TODO
-            //TODO
-            //TODO
             previousCount={list[i] && list[i][1]}
           />
         ))}

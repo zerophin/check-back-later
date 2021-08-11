@@ -7,15 +7,13 @@ function useStories(list) {
   useEffect(() => {
     Promise.all(list.map((story) => getStory(story))).then(
       (storiesResponse) => {
-        if (storiesResponse.length > 0) {
-          console.log("Adding stories");
-          setStories(storiesResponse);
-        }
+        console.log("Adding stories");
+        setStories(storiesResponse);
       }
     );
   }, [list]);
 
-  return [stories];
+  return [stories, setStories];
 }
 
 export default useStories;
