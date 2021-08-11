@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-function Story({ post }) {
+function Story({ post, handleDelete, previousCount }) {
   return (
     <li>
       {post.title ? (
-        <a href={`https://news.ycombinator.com/item?id=${post.id}`}>
-          {post.title} || {post.descendants}
-        </a>
+        <>
+          <a href={`https://news.ycombinator.com/item?id=${post.id}`}>
+            {post.title} || {post.descendants} ||{" "}
+            {post.descendants - previousCount || "no"} new comments
+          </a>
+          <button onClick={() => handleDelete(post.id)}>Delete</button>
+        </>
       ) : (
         <span>Loading...</span>
       )}

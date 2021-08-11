@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Story from "../components/Story";
@@ -8,27 +7,40 @@ import useStories from "../hooks/useStories";
 
 export default function Home() {
   const [ipt, setIpt] = useState("");
-  // TODO Add prev comment count to list
+  //[[id, commentCount]]
   const [list, setList] = useState([]);
-  const [stories] = useStories(list);
+  //[id]
+  const [idList, setIDList] = useState([]);
+  //[{}]
+  const [stories] = useStories(idList);
 
   useEffect(() => {
-    console.log("render");
+    // console.log(list);
+    // console.log(stories);
+    // console.log("-".repeat(10));
   });
 
+  useEffect(() => {
+    const newIDList = list.map((story) => +story[0]);
+    setIDList(newIDList);
+  }, [list]);
+
+  // Load from local storage
   useEffect(() => {
     const prevList = localStorage.getItem("posts");
     if (prevList && prevList.length > 1) {
       // Stories are stored in local storage split by |
-      // then grab the id
+      // then grab the id and parse to number
       const newList = prevList
         .split("|")
-        .map((story) => story.split(","))
-        .map((el) => el[0]);
+        .map((story) => story.split(",").map((el) => +el));
+      //.map((el) => +el[0]);
+      console.log("loading from local");
       setList(newList);
     }
   }, []);
 
+  // save to local storage
   useEffect(() => {
     const postsWithComment = stories.map((item) => [item.id, item.descendants]);
     localStorage.setItem("posts", postsWithComment.join("|"));
@@ -37,12 +49,17 @@ export default function Home() {
   const handleForm = (e) => {
     e.preventDefault();
     let webData = getWebsiteAndData(ipt);
-    if (webData) {
-      setList([...list, webData]);
+    if (webData && !list.every((story) => story[0] !== webData)) {
+      setList([...list, [webData]]);
       setIpt("");
     } else {
       alert("error");
     }
+  };
+
+  const deleteStory = (id) => {
+    const newList = list.filter((story) => story[0] !== id);
+    setList(newList);
   };
 
   return (
@@ -59,8 +76,16 @@ export default function Home() {
           <input value={ipt} onChange={(e) => setIpt(e.target.value)} />
           <button>Add</button>
         </form>
-        {stories.map((story) => (
-          <Story key={story.url + Math.random()} post={story} />
+        {stories.map((story, i) => (
+          <Story
+            key={story.url + Math.random()}
+            post={story}
+            handleDelete={deleteStory}
+            //TODO
+            //TODO
+            //TODO
+            previousCount={list[i] && list[i][1]}
+          />
         ))}
       </main>
     </div>

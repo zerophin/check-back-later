@@ -5,11 +5,14 @@ function useStories(list) {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    Promise.all(list.map((story) => getStory(story))).then((res) => {
-      if (res.length > 0) {
-        setStories(res);
+    Promise.all(list.map((story) => getStory(story))).then(
+      (storiesResponse) => {
+        if (storiesResponse.length > 0) {
+          console.log("Adding stories");
+          setStories(storiesResponse);
+        }
       }
-    });
+    );
   }, [list]);
 
   return [stories];
