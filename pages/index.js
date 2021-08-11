@@ -1,38 +1,49 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import {useState} from "react";
-import {MemoizedThread} from "../components/Thread";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
+import Story from "../components/Story";
+import { getWebsiteAndData } from "../helpers";
+import useStories from "../hooks/useStories";
 
 export default function Home() {
   const [ipt, setIpt] = useState("");
+  // TODO Add prev comment count to list
   const [list, setList] = useState([]);
+  const [stories] = useStories(list);
 
-  function getWebsiteAndData(website) {
-    const websiteReg = /\w+\.com/;
-    const siteData = website.match(websiteReg);
-    if (!Array.isArray(siteData)) return false;
-    switch (siteData[0]) {
-      case "ycombinator.com":
-        // Grabs hackernews id query
-        let id = siteData.input.match(/id=\d+/)[0].slice(3)
-        return {site: siteData[0], id: id};
-      case "reddit.com": // add reddit here
-      default:
-        return false;
+  useEffect(() => {
+    console.log("render");
+  });
+
+  useEffect(() => {
+    const prevList = localStorage.getItem("posts");
+    if (prevList && prevList.length > 1) {
+      // Stories are stored in local storage split by |
+      // then grab the id
+      const newList = prevList
+        .split("|")
+        .map((story) => story.split(","))
+        .map((el) => el[0]);
+      setList(newList);
     }
-  }
+  }, []);
 
-  const handleForm = e => {
+  useEffect(() => {
+    const postsWithComment = stories.map((item) => [item.id, item.descendants]);
+    localStorage.setItem("posts", postsWithComment.join("|"));
+  }, [stories]);
+
+  const handleForm = (e) => {
     e.preventDefault();
     let webData = getWebsiteAndData(ipt);
     if (webData) {
-      setList([...list, webData])
-      setIpt('')
+      setList([...list, webData]);
+      setIpt("");
     } else {
-      alert('error')
+      alert("error");
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -45,17 +56,13 @@ export default function Home() {
       <main className={styles.main}>
         <h1>Check Back Later</h1>
         <form onSubmit={handleForm}>
-          <input value={ipt} onChange={e => setIpt(e.target.value)}/>
+          <input value={ipt} onChange={(e) => setIpt(e.target.value)} />
           <button>Add</button>
         </form>
-
-        {list.length > 0 ?
-          list.map((item, i) => (<MemoizedThread key={`${item}-${i}`} website={item.site} id={item.id}/>))
-          :
-          <p>No values</p>
-        }
+        {stories.map((story) => (
+          <Story key={story.url + Math.random()} post={story} />
+        ))}
       </main>
-
     </div>
-  )
+  );
 }
