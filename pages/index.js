@@ -2,7 +2,11 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import Story from "../components/Story";
-import { getWebsiteAndData } from "../helpers";
+import {
+  getWebsiteAndData,
+  loadLocalStorage,
+  saveLocalStorage,
+} from "../helpers";
 import useStories from "../hooks/useStories";
 
 export default function Home() {
@@ -21,42 +25,24 @@ export default function Home() {
 
   // Load from local storage
   useEffect(() => {
-    const prevList = localStorage.getItem("posts");
-    if (prevList) {
-      const parsedList = JSON.parse(prevList);
-      setList(parsedList);
-      // Stories are stored in local storage split by |
-      // then grab the id and parse to number
-      // const newList = prevList
-      //   .split("|")
-      //   .map((story) => story.split(",").map((el) => +el));
-      // //.map((el) => +el[0]);
-      // console.log("loading from local");
-      // setList(newList);
+    let ls = loadLocalStorage();
+    if (ls) {
+      setList(ls);
     }
   }, []);
 
   // save to local storage
   useEffect(() => {
-    const posts = localStorage.getItem("posts");
-    if (posts) {
-      const parsedPosts = JSON.parse(posts);
-      const mPosts = new Map(parsedPosts);
-      stories.forEach((story) => {
-        let alreadyHasPosts = mPosts.get(story.id);
-        if (!alreadyHasPosts) {
-          mPosts.set(story.id, story.descendants);
-        }
-      });
-      localStorage.setItem("posts", JSON.stringify(Array.from(mPosts)));
-    }
-
-    // const postsWithComment = stories.map((item) => {
-    //   return [item.id, item.descendants];
-    // });
-    //
-    // localStorage.setItem("posts", JSON.stringify(postsWithComment));
+    saveLocalStorage(stories);
   }, [stories]);
+
+  function updateStoryComments(id) {
+    const listMap = new Map(list);
+    const storyViewCount = stories.find((story) => story.id === id).descendants;
+    listMap.set(id, storyViewCount);
+    console.log(listMap);
+    setList(Array.from(listMap));
+  }
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -88,14 +74,17 @@ export default function Home() {
           <input value={ipt} onChange={(e) => setIpt(e.target.value)} />
           <button>Add</button>
         </form>
-        {stories.map((story, i) => (
-          <Story
-            key={story.url + Math.random()}
-            post={story}
-            handleDelete={deleteStory}
-            previousCount={list[i] && list[i][1]}
-          />
-        ))}
+        <ol>
+          {stories.map((story, i) => (
+            <Story
+              key={story.url + Math.random()}
+              post={story}
+              handleDelete={deleteStory}
+              previousCount={list[i] && list[i][1]}
+              handleClick={updateStoryComments}
+            />
+          ))}
+        </ol>
       </main>
     </div>
   );

@@ -1,13 +1,21 @@
 import React from "react";
+import styles from "../styles/Story.module.css";
 
-function Story({ post, handleDelete, previousCount }) {
+function Story({ post, handleDelete, previousCount, handleClick }) {
+  const newComments = post.descendants - previousCount;
+
   return (
-    <li>
+    <li className={styles.listItem}>
       {post.title ? (
         <>
-          <a href={`https://news.ycombinator.com/item?id=${post.id}`}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`https://news.ycombinator.com/item?id=${post.id}`}
+            onClick={() => handleClick(post.id)}
+          >
             {post.title} || {post.descendants} ||{" "}
-            {post.descendants - previousCount || "no"} new comments
+            {newComments > 0 ? newComments : "no"} new comments
           </a>
           <button onClick={() => handleDelete(post.id)}>Delete</button>
         </>

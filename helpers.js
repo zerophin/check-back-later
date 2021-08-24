@@ -24,14 +24,38 @@ export const getLocalStorage = (searchTerm) => {
   return false;
 };
 
-// resist over-engineering.  may this forever remain commented
+export const loadLocalStorage = () => {
+  const prevList = localStorage.getItem("posts");
+  if (prevList) {
+    const parsedList = JSON.parse(prevList);
+    return parsedList;
+  }
+};
 
-// export const checkLocalStorage = (term, col = 0) => {
-//   const ls = getLocalStorage("posts");
-//   return ls.findIndex((el) => el[0] === term);
-// };
-//
-// export const updtateTerm = (term, updateComments) => {
-//   const foundTerm = checkLocalStorage(term);
-//   getLocalStorage()
-// };
+export const saveLocalStorage = (stories) => {
+  const posts = localStorage.getItem("posts");
+  if (posts) {
+    const parsedPosts = JSON.parse(posts);
+    const mPosts = new Map(parsedPosts);
+
+    const newStories = stories.map((story) => {
+      const storyID = story.id;
+      const alreadyHasStory = mPosts.has(storyID);
+      if (alreadyHasStory) {
+        return [storyID, mPosts.get(storyID)];
+      } else {
+        return [storyID, story.descendants];
+      }
+    });
+    if (newStories.length) {
+      console.log("updating from", posts);
+      console.log("to", newStories);
+      localStorage.setItem("posts", JSON.stringify(newStories));
+    }
+  } else {
+    const postsWithComment = stories.map((item) => {
+      return [item.id, item.descendants];
+    });
+    localStorage.setItem("posts", JSON.stringify(postsWithComment));
+  }
+};
