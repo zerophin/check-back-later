@@ -16,14 +16,6 @@ export const getWebsiteAndData = (website) => {
   }
 };
 
-export const getLocalStorage = (searchTerm) => {
-  const ls = localStorage.getItem(searchTerm);
-  if (ls) {
-    return JSON.parse(ls);
-  }
-  return false;
-};
-
 export const loadLocalStorage = () => {
   const prevList = localStorage.getItem("posts");
   if (prevList) {
@@ -48,7 +40,7 @@ export const saveLocalStorage = (stories) => {
       }
     });
     if (newStories.length) {
-      console.log("updating from", posts);
+      console.log("updating from", parsedPosts);
       console.log("to", newStories);
       localStorage.setItem("posts", JSON.stringify(newStories));
     }

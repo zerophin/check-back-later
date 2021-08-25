@@ -40,8 +40,10 @@ export default function Home() {
     const listMap = new Map(list);
     const storyViewCount = stories.find((story) => story.id === id).descendants;
     listMap.set(id, storyViewCount);
-    console.log(listMap);
-    setList(Array.from(listMap));
+
+    const arrayList = Array.from(listMap);
+    localStorage.setItem("posts", JSON.stringify(arrayList));
+    setList(arrayList);
   }
 
   const handleForm = (e) => {
@@ -51,7 +53,7 @@ export default function Home() {
       setList([...list, [webData]]);
       setIpt("");
     } else {
-      console.error("errorerrrororeoreos");
+      alert("That website is already added!");
     }
   };
 
@@ -70,9 +72,13 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>Check Back Later</h1>
-        <form onSubmit={handleForm}>
-          <input value={ipt} onChange={(e) => setIpt(e.target.value)} />
-          <button>Add</button>
+        <form style={{ width: "60%" }} onSubmit={handleForm}>
+          <input
+            style={{ width: "70%", padding: "2rem" }}
+            value={ipt}
+            onChange={(e) => setIpt(e.target.value)}
+          />
+          <button style={{ height: "100%", width: "30%" }}>Add</button>
         </form>
         <ol>
           {stories.map((story, i) => (
