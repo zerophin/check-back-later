@@ -8,9 +8,10 @@ import {
   saveLocalStorage,
 } from "../helpers";
 import useStories from "../hooks/useStories";
+import Input from "../components/Input";
 
 export default function Home() {
-  const [ipt, setIpt] = useState("");
+  //const [ipt, setIpt] = useState("");
   //[[id, commentCount]]
   const [list, setList] = useState([]);
   //[id]
@@ -46,12 +47,11 @@ export default function Home() {
     setList(arrayList);
   }
 
-  const handleForm = (e) => {
+  const handleForm = (e, ipt) => {
     e.preventDefault();
     let webData = getWebsiteAndData(ipt);
     if (webData && list.every((story) => story[0] !== webData)) {
       setList([...list, [webData]]);
-      setIpt("");
     } else {
       alert("That website is already added!");
     }
@@ -72,14 +72,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1>Check Back Later</h1>
         <>
-          <form style={{ width: "60%" }} onSubmit={handleForm}>
-            <input
-              style={{ width: "70%", padding: "2rem" }}
-              value={ipt}
-              onChange={(e) => setIpt(e.target.value)}
-            />
-            <button style={{ height: "100%", width: "30%" }}>Add</button>
-          </form>
+          <Input handleForm={handleForm} />
           <ol>
             {stories.map((story, i) => (
               <Story

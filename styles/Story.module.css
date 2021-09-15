@@ -1,4 +1,13 @@
-.list-item {
-    background: blue;
-    color: red;
+.listItem {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    background: #ff6600;
+    color: black;
+}
+
+.button {
+    margin-left: 1rem;
+    padding: 1rem;
 }

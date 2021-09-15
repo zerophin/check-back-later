@@ -17,7 +17,12 @@ function Story({ post, handleDelete, previousCount, handleClick }) {
             {post.title} || {post.descendants} ||{" "}
             {newComments > 0 ? newComments : "no"} new comments
           </a>
-          <button onClick={() => handleDelete(post.id)}>Delete</button>
+          <button
+            className={styles.button}
+            onClick={() => handleDelete(post.id)}
+          >
+            Delete
+          </button>
         </>
       ) : (
         <span>Loading...</span>
