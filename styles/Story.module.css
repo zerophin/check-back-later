@@ -1,13 +1,19 @@
 .listItem {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 2rem;
     margin-bottom: 1rem;
     background: #ff6600;
     color: black;
+    font-size: 1.25rem;
 }
 
 .button {
     margin-left: 1rem;
     padding: 1rem;
+}
+
+.metaData {
+    color: #e2e0e0
 }

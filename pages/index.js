@@ -71,20 +71,19 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>Check Back Later</h1>
-        <>
-          <Input handleForm={handleForm} />
-          <ol>
-            {stories.map((story, i) => (
-              <Story
-                key={story.url + Math.random()}
-                post={story}
-                handleDelete={deleteStory}
-                previousCount={list[i] && list[i][1]}
-                handleClick={updateStoryComments}
-              />
-            ))}
-          </ol>
-        </>
+
+        <Input handleForm={handleForm} />
+        <ol>
+          {stories.map((story, i) => (
+            <Story
+              key={story.url + Math.random()}
+              post={story}
+              handleDelete={deleteStory}
+              previousCount={list[i] && list[i][1]}
+              handleClick={updateStoryComments}
+            />
+          ))}
+        </ol>
       </main>
     </div>
   );

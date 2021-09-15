@@ -3,7 +3,7 @@ import styles from "../styles/Story.module.css";
 
 function Story({ post, handleDelete, previousCount, handleClick }) {
   const newComments = post.descendants - previousCount;
-
+  //TODO fix styling
   return (
     <li className={styles.listItem}>
       {post.title ? (
@@ -14,8 +14,11 @@ function Story({ post, handleDelete, previousCount, handleClick }) {
             href={`https://news.ycombinator.com/item?id=${post.id}`}
             onClick={() => handleClick(post.id)}
           >
-            {post.title} || {post.descendants} ||{" "}
-            {newComments > 0 ? newComments : "no"} new comments
+            {post.title}{" "}
+            <span className={styles.metaData}>
+              || {post.descendants} || {newComments > 0 ? newComments : "no"}{" "}
+              new comments
+            </span>
           </a>
           <button
             className={styles.button}
