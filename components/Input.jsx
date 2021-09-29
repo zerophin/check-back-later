@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "../styles/Input.module.css";
 
 function Input({ handleForm }) {
   const [ipt, setIpt] = useState("");
@@ -9,13 +10,13 @@ function Input({ handleForm }) {
   };
 
   return (
-    <form style={{ width: "60%" }} onSubmit={onFormSubmit}>
+    <form className={styles.form} onSubmit={onFormSubmit}>
       <input
-        style={{ width: "70%", padding: "2rem" }}
+        className={styles.input}
         value={ipt}
         onChange={(e) => setIpt(e.target.value)}
       />
-      <button style={{ height: "100%", width: "30%" }}>Add</button>
+      <button className={styles.button}>Add</button>
     </form>
   );
 }
