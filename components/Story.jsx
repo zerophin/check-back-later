@@ -14,10 +14,11 @@ function Story({ post, handleDelete, previousCount, handleClick }) {
             href={`https://news.ycombinator.com/item?id=${post.id}`}
             onClick={() => handleClick(post.id)}
           >
-            {post.title}{" "}
+            {post.title}
             <span className={styles.metaData}>
-              || {post.descendants} || {newComments > 0 ? newComments : "no"}{" "}
-              new comments
+              {post.descendants} | {newComments > 0 ? newComments : "no"}
+              {` `}
+              new {newComments === 1 ? "comment" : "comments"}
             </span>
           </a>
           <button

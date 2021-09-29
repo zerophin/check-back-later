@@ -73,7 +73,7 @@ export default function Home() {
         <h1>Check Back Later</h1>
 
         <Input handleForm={handleForm} />
-        <ol className={styles.list}>
+        <ol className={styles.list} reversed>
           {stories.map((story, i) => (
             <Story
               key={story.url + Math.random()}

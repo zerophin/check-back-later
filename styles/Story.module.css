@@ -7,15 +7,27 @@
     padding: 2rem;
     margin-bottom: 1rem;
     background: #ff6600;
-    color: black;
+    color: #e3e3e3;
     font-size: 1.25rem;
+    font-weight: 400;
+    text-shadow: #b9b9b9;
 }
 
 .button {
     margin-left: 1rem;
+    border-radius: 10px;
     padding: 1rem;
+}
+.button:hover {
+    background: #b9b9b9;
+    color: white;
 }
 
 .metaData {
-    color: #e2e0e0
+    display: block;
+    color: #e2e0e0;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+
+    font-weight: 200;
 }

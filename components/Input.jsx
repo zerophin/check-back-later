@@ -12,7 +12,7 @@ function Input({ handleForm }) {
   return (
     <form className={styles.form} onSubmit={onFormSubmit}>
       <input
-        className={styles.input}
+        className={`${styles.input} ${styles.diamond3}}`}
         value={ipt}
         onChange={(e) => setIpt(e.target.value)}
       />
