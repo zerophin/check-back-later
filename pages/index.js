@@ -90,6 +90,7 @@ export default function Home() {
               />
             ))}
         </ol>
+        {!stories.length && <p>No posts added!</p>}
       </main>
     </div>
   );
