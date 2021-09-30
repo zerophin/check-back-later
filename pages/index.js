@@ -50,7 +50,9 @@ export default function Home() {
   const handleForm = (e, ipt) => {
     e.preventDefault();
     let webData = getWebsiteAndData(ipt);
-    if (webData && list.every((story) => story[0] !== webData)) {
+    if (!webData) {
+      alert("Invalid website or link... only hackernews links");
+    } else if (webData && list.every((story) => story[0] !== webData)) {
       setList([...list, [webData]]);
     } else {
       alert("That website is already added!");
@@ -74,15 +76,19 @@ export default function Home() {
 
         <Input handleForm={handleForm} />
         <ol className={styles.list} reversed>
-          {stories.map((story, i) => (
-            <Story
-              key={story.url + Math.random()}
-              post={story}
-              handleDelete={deleteStory}
-              previousCount={list[i] && list[i][1]}
-              handleClick={updateStoryComments}
-            />
-          ))}
+          {/*TODO Skips a story if no URL, should introduce*/}
+          {/*something that delete invalid links*/}
+          {stories
+            .filter((story) => story && story.url)
+            .map((story, i) => (
+              <Story
+                key={story.url + Math.random()}
+                post={story}
+                handleDelete={deleteStory}
+                previousCount={list[i] && list[i][1]}
+                handleClick={updateStoryComments}
+              />
+            ))}
         </ol>
       </main>
     </div>
