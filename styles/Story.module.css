@@ -7,10 +7,9 @@
     padding: 2rem;
     margin-bottom: 1rem;
     background: #ff6600;
-    color: #e3e3e3;
+    color: #f3f3f3;
     font-size: 1.25rem;
     font-weight: 400;
-    text-shadow: #b9b9b9;
 }
 
 .button {
@@ -20,7 +19,7 @@
 }
 .button:hover {
     background: #b9b9b9;
-    color: white;
+    color: #f3f3f3;
 }
 
 .metaData {
@@ -28,6 +27,5 @@
     color: #e2e0e0;
     font-size: 1rem;
     margin-top: 0.5rem;
-
-    font-weight: 200;
+    font-weight: 300;
 }
