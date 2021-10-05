@@ -12,22 +12,12 @@ import useStories from "../hooks/useStories";
 import Input from "../components/Input";
 
 export default function Home() {
-  //const [ipt, setIpt] = useState("");
   //[[id, commentCount]]
   const [list, setList] = useState([]);
-  //[id]
-  const [idList, setIDList] = useState([]);
   //[{}]
-  const [stories] = useStories(idList);
-
-  //const apiAvailable = useCheckAPI();
+  const [stories] = useStories(list);
 
   const isAvailable = useCheckApi();
-
-  useEffect(() => {
-    const newIDList = list.map((story) => +story[0]);
-    setIDList(newIDList);
-  }, [list]);
 
   // Load from local storage
   useEffect(() => {

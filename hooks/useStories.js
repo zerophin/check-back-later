@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import getStory from "./getStory";
 
 function useStories(list) {
   const [stories, setStories] = useState([]);
+  const [storyID, setStoryID] = useState([]);
   useEffect(() => {
-    Promise.all(list.map((story) => getStory(story)))
+    let idList = list.map((story) => +story[0]);
+    setStoryID(idList);
+  }, [list]);
+
+  useEffect(() => {
+    if (!storyID.length) return;
+    Promise.all(storyID.map((story) => getStory(story)))
       .then((storiesResponse) => {
         console.log("Setting stories in useStories");
         setStories(storiesResponse);
@@ -16,7 +23,7 @@ function useStories(list) {
           console.error(e);
         }
       });
-  }, [list]);
+  }, [storyID]);
 
   return [stories];
 }
