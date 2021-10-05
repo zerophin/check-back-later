@@ -15,7 +15,7 @@ export default function Home() {
   //[[id, commentCount]]
   const [list, setList] = useState([]);
   //[{}]
-  const [stories] = useStories(list);
+  const [stories] = useStories(list, setList);
 
   const isAvailable = useCheckApi();
 
@@ -87,9 +87,7 @@ export default function Home() {
         <h1>Check Back Later</h1>
 
         <Input handleForm={handleForm} />
-        <ol className={styles.list} reversed>
-          {/*TODO Skips a story if no URL, should introduce*/}
-          {/*something that delete invalid links*/}
+        <ol className={styles.list}>
           {stories
             .filter((story) => story && story.url)
             .map((story, i) => (

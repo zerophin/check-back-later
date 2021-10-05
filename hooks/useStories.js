@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import getStory from "./getStory";
 
-function useStories(list) {
+function useStories(list, setList) {
   const [stories, setStories] = useState([]);
   const [storyID, setStoryID] = useState([]);
   useEffect(() => {
@@ -19,11 +19,13 @@ function useStories(list) {
       .catch((e) => {
         if (e.message === "Invalid URL") {
           alert(`Problem fetching ${e.id}.\nCheck the URL and try again`);
+          // remove invalid id from list
+          setList((list) => list.filter((story) => +story[0] !== e.id));
         } else {
           console.error(e);
         }
       });
-  }, [storyID]);
+  }, [setList, storyID]);
 
   return [stories];
 }
