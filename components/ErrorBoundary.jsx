@@ -1,4 +1,6 @@
 import React from "react";
+import LocalStorageBrokeFixerUpper from "./LocalStorageBrokeFixerUpper";
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,7 @@ class ErrorBoundary extends React.Component {
               clear
             </button>
           </p>
+          <LocalStorageBrokeFixerUpper />
         </>
       );
     }

@@ -31,14 +31,17 @@ export const saveLocalStorage = (stories) => {
     const mPosts = new Map(parsedPosts);
 
     const newStories = stories.map((story) => {
-      const storyID = story.id;
-      const alreadyHasStory = mPosts.has(storyID);
-      if (alreadyHasStory) {
-        return [storyID, mPosts.get(storyID)];
-      } else {
-        return [storyID, story.descendants];
+      if (story?.id) {
+        const storyID = story.id;
+        const alreadyHasStory = mPosts.has(storyID);
+        if (alreadyHasStory) {
+          return [storyID, mPosts.get(storyID)];
+        } else {
+          return [storyID, story.descendants];
+        }
       }
     });
+
     if (newStories.length) {
       console.log("updating from", parsedPosts);
       console.log("to", newStories);

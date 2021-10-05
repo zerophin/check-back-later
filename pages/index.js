@@ -7,6 +7,7 @@ import {
   loadLocalStorage,
   saveLocalStorage,
 } from "../helpers";
+import useCheckApi from "../hooks/useCheckAPI";
 import useStories from "../hooks/useStories";
 import Input from "../components/Input";
 
@@ -18,6 +19,10 @@ export default function Home() {
   const [idList, setIDList] = useState([]);
   //[{}]
   const [stories] = useStories(idList);
+
+  //const apiAvailable = useCheckAPI();
+
+  const isAvailable = useCheckApi();
 
   useEffect(() => {
     const newIDList = list.map((story) => +story[0]);
@@ -34,7 +39,11 @@ export default function Home() {
 
   // save to local storage
   useEffect(() => {
-    saveLocalStorage(stories);
+    const filteredStories = stories.filter((story) => {
+      const validStory = story && story.type === "story";
+      return validStory;
+    });
+    saveLocalStorage(filteredStories);
   }, [stories]);
 
   function updateStoryComments(id) {
@@ -63,6 +72,19 @@ export default function Home() {
     const newList = list.filter((story) => story[0] !== id);
     setList(newList);
   };
+
+  if (!isAvailable) {
+    return (
+      <div className={styles.container}>
+        <h1>API DOWN</h1>
+        <p>
+          For some reason this website is unable to connect to the Hacker News
+          API, it might be down.
+        </p>
+        <button onClick={() => location.reload()}>refresh</button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
