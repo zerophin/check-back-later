@@ -51,10 +51,10 @@ export default function Home() {
     let webData = getWebsiteAndData(ipt);
     if (!webData) {
       alert("Invalid website or link... only hackernews links");
-    } else if (webData && list.every((story) => story[0] !== webData)) {
-      setList([...list, [webData]]);
-    } else {
+    } else if (!list.every((story) => story[0] !== webData)) {
       alert("That website is already added!");
+    } else {
+      setList([...list, [webData]]);
     }
   };
 

@@ -11,6 +11,7 @@ export const getWebsiteAndData = (website) => {
     // grab the id and specific website
     //return { site: siteData[0], id: id };
     case "reddit.com": // add reddit here
+      alert("Reddit is not yet supported");
     default:
       return false;
   }
