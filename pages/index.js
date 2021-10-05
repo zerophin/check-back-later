@@ -80,7 +80,6 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Check Back Later</title>
-        <html lang="en" />
         <meta name="description" content="Follow hacker news stories" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
