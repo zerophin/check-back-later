@@ -1,6 +1,9 @@
+# Working Link
 Working app can be found [here](https://checkbacklater.netlify.app/)
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## About
+
+This project allows you to follow hacker news stories and shows the number of new comments
 
 ## Getting Started
 
