@@ -32,7 +32,6 @@ class ErrorBoundary extends React.Component {
               clear
             </button>
           </p>
-          <LocalStorageBrokeFixerUpper />
         </>
       );
     }
