@@ -19,14 +19,16 @@ export const getWebsiteAndData = (website) => {
 
 export const loadLocalStorage = () => {
   const prevList = localStorage.getItem("posts");
+
   if (prevList) {
     const parsedList = JSON.parse(prevList);
     return parsedList;
   }
 };
-
+// todo rename
 export const saveLocalStorage = (stories) => {
   const posts = localStorage.getItem("posts");
+
   if (posts) {
     const parsedPosts = JSON.parse(posts);
     const mPosts = new Map(parsedPosts);
