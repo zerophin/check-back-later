@@ -1,9 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import getStory from "./getStory";
 
 function useStories(list, setList) {
   const [stories, setStories] = useState([]);
   const [storyID, setStoryID] = useState([]);
+
   useEffect(() => {
     let idList = list.map((story) => +story[0]);
     setStoryID(idList);
