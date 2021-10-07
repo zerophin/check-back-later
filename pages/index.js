@@ -19,6 +19,15 @@ export default function Home() {
 
   const isAvailable = useCheckApi();
 
+  // check if first time visiting page
+  useEffect(() => {
+    const previousVisit = localStorage.getItem("posts");
+    if (previousVisit === null) {
+      const seed = require("../seed").default;
+      const seedMap = seed.map((id) => [id]);
+      setList(seedMap);
+    }
+  }, []);
   // Load from local storage
   useEffect(() => {
     let ls = loadLocalStorage();
