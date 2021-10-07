@@ -45,11 +45,12 @@ export const saveLocalStorage = (stories) => {
       }
     });
 
-    if (newStories.length) {
+    if (newStories) {
       console.log("updating from", parsedPosts);
       console.log("to", newStories);
       localStorage.setItem("posts", JSON.stringify(newStories));
     }
+    // ---adding~~~space---for~~~readability---thanks~~~prettier---
   } else {
     const postsWithComment = stories.map((item) => {
       return [item.id, item.descendants];
