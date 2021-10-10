@@ -15,6 +15,7 @@ function Input({ handleForm }) {
         className={`${styles.input} ${styles.diamond3}}`}
         value={ipt}
         onChange={(e) => setIpt(e.target.value)}
+        placeholder="Hacker News Link..."
       />
       <button className={styles.button}>Add</button>
     </form>

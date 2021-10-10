@@ -11,10 +11,6 @@ function useStories(list, setList) {
   }, [list]);
 
   useEffect(() => {
-    if (!storyID.length) {
-      setStories([]);
-      return;
-    }
     Promise.all(storyID.map((story) => getStory(story)))
       .then((storiesResponse) => {
         console.log("Setting stories in useStories");

@@ -26,34 +26,31 @@ export const loadLocalStorage = () => {
   }
 };
 // todo rename
-export const saveLocalStorage = (stories) => {
+export const saveLocalStorage = (list) => {
   const posts = localStorage.getItem("posts");
-
   if (posts) {
     const parsedPosts = JSON.parse(posts);
     const mPosts = new Map(parsedPosts);
 
-    const newStories = stories.map((story) => {
-      if (story?.id) {
-        const storyID = story.id;
-        const alreadyHasStory = mPosts.has(storyID);
-        if (alreadyHasStory) {
-          return [storyID, mPosts.get(storyID)];
-        } else {
-          return [storyID, story.descendants];
-        }
+    const newIdList = list.map((item) => {
+      const itemID = item[0];
+      const alreadyHasStory = mPosts.has(itemID);
+      if (alreadyHasStory) {
+        return [itemID, mPosts.get(itemID)];
+      } else {
+        return [itemID, null];
       }
     });
-
-    if (newStories.length) {
+    // Dear Randal, you might want to add a .length check here
+    // But this has led to hours of debugging, learn from your past mistakes don't repeat them
+    if (newIdList) {
       console.log("updating from", parsedPosts);
-      console.log("to", newStories);
-      localStorage.setItem("posts", JSON.stringify(newStories));
-    }
-    // ---adding~~~space---for~~~readability---thanks~~~prettier---
+      console.log("to", newIdList);
+      localStorage.setItem("posts", JSON.stringify(newIdList));
+    } // ---adding~~~space---for~~~readability---thanks~~~prettier---
   } else {
-    const postsWithComment = stories.map((item) => {
-      return [item.id, item.descendants];
+    const postsWithComment = list.map((item) => {
+      return [item[0], item[1]];
     });
     localStorage.setItem("posts", JSON.stringify(postsWithComment));
   }

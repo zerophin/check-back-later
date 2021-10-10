@@ -15,7 +15,7 @@ export default function Home() {
   //[[id, commentCount]]
   const [list, setList] = useState([]);
   //[{}]
-  const [stories, setStories] = useStories(list, setList);
+  const [stories] = useStories(list, setList);
 
   const isAvailable = useCheckApi();
 
@@ -39,11 +39,22 @@ export default function Home() {
 
   // save to local storage
   useEffect(() => {
-    const filteredStories = stories.filter((story) => {
-      const validStory = story && story.type === "story";
-      return validStory;
-    });
-    saveLocalStorage(filteredStories);
+    saveLocalStorage(list);
+  }, [list]);
+
+  // Update the new story to reflect the number of comments when added
+  useEffect(() => {
+    if (stories.length > 0) {
+      let mapList = new Map(list);
+      mapList.forEach((item, key) => {
+        if (item === undefined) {
+          const storyChildren = stories.find((story) => story.id === key);
+          mapList.set(key, storyChildren.descendants);
+        }
+      });
+      localStorage.setItem("posts", JSON.stringify(Array.from(mapList)));
+    }
+    // leave the dependency like this
   }, [stories]);
 
   function updateStoryComments(id) {
@@ -71,9 +82,6 @@ export default function Home() {
   const deleteStory = (id) => {
     const newList = list.filter((story) => story[0] !== id);
     setList(newList);
-    if (list.length === 0) {
-      setStories([]);
-    }
   };
 
   if (!isAvailable) {
@@ -102,7 +110,7 @@ export default function Home() {
         <Input handleForm={handleForm} />
         <ol className={styles.list}>
           {stories
-            .filter((story) => story && story.url)
+            .filter((story) => story && story.type === "story")
             .map((story, i) => (
               <Story
                 key={story.url + Math.random()}
