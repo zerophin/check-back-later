@@ -45,7 +45,7 @@ export const saveLocalStorage = (stories) => {
       }
     });
 
-    if (newStories) {
+    if (newStories.length) {
       console.log("updating from", parsedPosts);
       console.log("to", newStories);
       localStorage.setItem("posts", JSON.stringify(newStories));

@@ -15,7 +15,7 @@ export default function Home() {
   //[[id, commentCount]]
   const [list, setList] = useState([]);
   //[{}]
-  const [stories] = useStories(list, setList);
+  const [stories, setStories] = useStories(list, setList);
 
   const isAvailable = useCheckApi();
 
@@ -71,6 +71,9 @@ export default function Home() {
   const deleteStory = (id) => {
     const newList = list.filter((story) => story[0] !== id);
     setList(newList);
+    if (list.length === 0) {
+      setStories([]);
+    }
   };
 
   if (!isAvailable) {
