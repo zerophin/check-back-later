@@ -5,8 +5,15 @@ export const getWebsiteAndData = (website) => {
   switch (siteData[0]) {
     case "ycombinator.com":
       // Grabs hackernews id query
-      let id = siteData.input.match(/id=\d+/)[0].slice(3);
-      return +id;
+      let match = siteData.input.match(/id=\d+/);
+      if (match) {
+        console.log({ match });
+        let id = match[0].slice(3);
+        return +id;
+      }
+      // hacker news link without id
+      return false;
+
     // When supporting multiple websites
     // grab the id and specific website
     //return { site: siteData[0], id: id };
