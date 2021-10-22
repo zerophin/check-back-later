@@ -10,6 +10,7 @@ import {
 import useCheckApi from "../hooks/useCheckAPI";
 import useStories from "../hooks/useStories";
 import Input from "../components/Input";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 export default function Home() {
   //[[id, commentCount]]
@@ -106,21 +107,24 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>Check Back Later</h1>
-
         <Input handleForm={handleForm} />
-        <ol className={styles.list}>
-          {stories
-            .filter((story) => story && story.type === "story")
-            .map((story, i) => (
-              <Story
-                key={story.url + Math.random()}
-                post={story}
-                handleDelete={deleteStory}
-                previousCount={list[i] && list[i][1]}
-                handleClick={updateStoryComments}
-              />
-            ))}
-        </ol>
+        {list.length > 0 && !stories.length > 0 ? (
+          <LoadingAnimation />
+        ) : (
+          <ol className={styles.list}>
+            {stories
+              .filter((story) => story && story.type === "story")
+              .map((story, i) => (
+                <Story
+                  key={story.url + Math.random()}
+                  post={story}
+                  handleDelete={deleteStory}
+                  previousCount={list[i] && list[i][1]}
+                  handleClick={updateStoryComments}
+                />
+              ))}
+          </ol>
+        )}
         {!list.length && <p>No posts added!</p>}
       </main>
     </div>
