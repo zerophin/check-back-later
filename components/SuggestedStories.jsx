@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Stories from "./Stories";
 import useStories from "../hooks/useStories";
 import { loadLocalStorage } from "../helpers";
+import styles from "../styles/SuggestedStories.module.css";
 
 function SuggestedStories({ handleAddStory }) {
   const numberOfTopStories = 3;
@@ -25,9 +26,9 @@ function SuggestedStories({ handleAddStory }) {
   }, []);
 
   return (
-    <div>
-      <h3 style={{ textAlign: "center" }}>Suggested Stories</h3>
-      <hr />
+    <div className={styles.container}>
+      <h3>Suggested Stories</h3>
+      <hr className={styles.divider} />
       <Stories
         stories={stories}
         list={list}
