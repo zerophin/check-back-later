@@ -9,7 +9,7 @@ function Stories({
   updateStoryComments,
   buttonText = "delete",
 }) {
-  const [sorted, setSorted] = useState(false);
+  const [sorted, setSorted] = useState(true);
 
   const isValidStory = (story) => story && story.type === "story";
   const sortByCommentCount = (a, b) => {
@@ -36,7 +36,7 @@ function Stories({
     <>
       {updateStoryComments && (
         <button onClick={() => setSorted(!sorted)}>
-          {sorted ? `Sort by added` : `Sort by new comments`}
+          {sorted ? `Sort by recently added` : `Sort by new comments`}
         </button>
       )}
       <ol className={styles.list}>
