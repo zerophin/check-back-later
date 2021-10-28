@@ -25,7 +25,7 @@ function Story({
             {post.title}
             <span className={styles.metaData}>
               {post.descendants}{" "}
-              {previousCount && (
+              {!isNaN(newComments) && (
                 <span>
                   | {newComments > 0 ? newComments : "no"}
                   {` `}
