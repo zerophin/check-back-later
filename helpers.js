@@ -62,3 +62,8 @@ export const saveLocalStorage = (list) => {
     localStorage.setItem("posts", JSON.stringify(postsWithComment));
   }
 };
+
+export const addOneToLocalStorage = (id) => {
+  let list = loadLocalStorage();
+  saveLocalStorage([...list, [id]]);
+};

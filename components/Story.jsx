@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "../styles/Story.module.css";
 
-function Story({ post, handleDelete, previousCount, handleClick }) {
+function Story({
+  post,
+  handleButtonClick,
+  previousCount,
+  handleClick,
+  buttonText,
+}) {
   const newComments = post.descendants - previousCount;
   //TODO fix styling
   return (
@@ -23,9 +29,9 @@ function Story({ post, handleDelete, previousCount, handleClick }) {
           </a>
           <button
             className={styles.button}
-            onClick={() => handleDelete(post.id)}
+            onClick={() => handleButtonClick(post.id)}
           >
-            Delete
+            {buttonText}
           </button>
         </>
       ) : (
