@@ -18,7 +18,9 @@ function Story({
             target="_blank"
             rel="noreferrer"
             href={`https://news.ycombinator.com/item?id=${post.id}`}
-            onClick={() => handleClick(post.id)}
+            onClick={() => {
+              if (handleClick) handleClick(post.id);
+            }}
           >
             {post.title}
             <span className={styles.metaData}>
