@@ -3,8 +3,8 @@ import styles from "../styles/Home.module.css";
 import useCheckApi from "../hooks/useCheckAPI";
 import SuggestedStories from "../components/SuggestedStories";
 import MainSection from "../components/MainSection";
+import { addOneToLocalStorage } from "../helpers";
 import Link from "next/link";
-import { addOneToLocalStorage, saveLocalStorage } from "../helpers";
 
 export default function Home() {
   const isAvailable = useCheckApi();
@@ -40,7 +40,7 @@ export default function Home() {
         <SuggestedStories handleAddStory={addStoryFromSuggested} />
       </main>
       <footer className={styles.footer}>
-        Made by <Link href="https:randalsmith.dev">Randal Smith</Link>
+        Made by <Link href="https://www.randalsmith.dev">Randal Smith</Link>
       </footer>
     </div>
   );

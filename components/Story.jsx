@@ -24,9 +24,16 @@ function Story({
           >
             {post.title}
             <span className={styles.metaData}>
-              {post.descendants} | {newComments > 0 ? newComments : "no"}
-              {` `}
-              new {newComments === 1 ? "comment" : "comments"}
+              {post.descendants}{" "}
+              {previousCount && (
+                <span>
+                  | {newComments > 0 ? newComments : "no"}
+                  {` `}
+                  new
+                  {` `}
+                </span>
+              )}
+              {newComments === 1 ? "comment" : "comments"}
             </span>
           </a>
           <button
