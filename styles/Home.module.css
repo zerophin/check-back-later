@@ -24,6 +24,14 @@
     width: 75%;
 }
 
+.footer {
+    padding: 2rem;
+}
+
+.footer a {
+    color: #2020ff;
+}
+
 @media (max-width: 600px) {
     .list {
         width: 100%;
