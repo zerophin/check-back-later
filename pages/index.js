@@ -10,6 +10,7 @@ export default function Home() {
 
   const addStoryFromSuggested = (id) => {
     addOneToLocalStorage(id);
+    location.reload();
   };
 
   if (!isAvailable) {

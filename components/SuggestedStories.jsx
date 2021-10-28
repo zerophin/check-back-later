@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Stories from "./Stories";
 import useStories from "../hooks/useStories";
+import { loadLocalStorage } from "../helpers";
 
 function SuggestedStories({ handleAddStory }) {
   const numberOfTopStories = 3;
@@ -12,15 +13,18 @@ function SuggestedStories({ handleAddStory }) {
       .then((res) => res.json())
       .then((topStories) => {
         let stories = topStories
+          // TODO cleanup
+          // filters already used ID's
+          .filter((id) => loadLocalStorage().every((preID) => preID[0] !== id))
           .slice(0, numberOfTopStories)
-          .map((story) => [story]);
+          .map((id) => [id]);
         setList(stories);
       });
   }, []);
 
   return (
     <div>
-      <h3>Suggested Stories</h3>
+      <h3 style={{ textAlign: "center" }}>Suggested Stories</h3>
       <hr />
       <Stories
         stories={stories}
