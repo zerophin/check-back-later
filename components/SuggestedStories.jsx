@@ -15,7 +15,9 @@ function SuggestedStories({ handleAddStory }) {
         let stories = topStories
           // TODO cleanup
           // filters already used ID's
-          .filter((id) => loadLocalStorage().every((preID) => preID[0] !== id))
+          .filter((id) =>
+            loadLocalStorage().every((savedID) => savedID[0] !== id)
+          )
           .slice(0, numberOfTopStories)
           .map((id) => [id]);
         setList(stories);
