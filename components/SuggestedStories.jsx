@@ -10,7 +10,7 @@ function SuggestedStories({ handleAddStory }) {
   const [stories] = useStories(list, setList);
 
   useEffect(() => {
-    fetch("https://hacker-news.firebaseio.com/v0/beststories.json")
+    fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
       .then((res) => res.json())
       .then((topStories) => {
         let stories = topStories
