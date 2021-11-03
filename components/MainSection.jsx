@@ -20,7 +20,7 @@ function MainSection(props) {
   useEffect(() => {
     const previousVisit = localStorage.getItem("posts");
     if (previousVisit === null) {
-      const seed = require("../seed").default;
+      const seed = require("../seed");
       // setting read comments to 0
       const seedMap = seed.map((id) => [id, 0]);
       setList(seedMap);
