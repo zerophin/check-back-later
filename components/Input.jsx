@@ -17,7 +17,7 @@ function Input({ handleForm }) {
         onChange={(e) => setIpt(e.target.value)}
         placeholder="Hacker News Link..."
       />
-      <button className={styles.button}>Add</button>
+      <button className={styles.button}>Add Story</button>
     </form>
   );
 }
