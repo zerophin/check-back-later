@@ -1,13 +1,15 @@
 .form {
     text-align: center;
-    width: 60%;
+    justify-content: center;
+    width: 70%;
 }
 
 .input {
-    width: 70%;
+    width: 100%;
     padding: 1.5rem;
 }
 
 .button {
     padding: 1.5rem;
+    width: 100%;
 }

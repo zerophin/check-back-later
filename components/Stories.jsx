@@ -35,7 +35,10 @@ function Stories({
   return (
     <>
       {updateStoryComments && (
-        <button onClick={() => setSorted(!sorted)}>
+        <button
+          className={styles["sort-button"]}
+          onClick={() => setSorted(!sorted)}
+        >
           {sorted ? `Sort by recently added` : `Sort by new comments`}
         </button>
       )}
