@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import ErrorBoundary from "../components/ErrorBoundary";
+import "normalize.css";
 
 function MyApp({ Component, pageProps }) {
   return (
