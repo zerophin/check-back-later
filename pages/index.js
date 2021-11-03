@@ -4,7 +4,6 @@ import useCheckApi from "../hooks/useCheckAPI";
 import SuggestedStories from "../components/SuggestedStories";
 import MainSection from "../components/MainSection";
 import { addOneToLocalStorage } from "../helpers";
-import Link from "next/link";
 
 export default function Home() {
   const isAvailable = useCheckApi();
@@ -39,9 +38,6 @@ export default function Home() {
         <MainSection />
         <SuggestedStories handleAddStory={addStoryFromSuggested} />
       </main>
-      <footer className={styles.footer}>
-        Made by <Link href="https://www.randalsmith.dev">Randal Smith</Link>
-      </footer>
     </div>
   );
 }
